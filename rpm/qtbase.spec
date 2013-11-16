@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(sm)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xcb-keysyms)
 BuildRequires:  pkgconfig(xcb-image)
 BuildRequires:  pkgconfig(xcb-icccm)
@@ -201,14 +202,6 @@ Requires:   %{name}-qtcore = %{version}-%{release}
 %description plugin-platform-inputcontext-compose
 This package contains compose platform inputcontext plugin
 
-
-%package plugin-platform-inputcontext-maliit
-Summary:    MALIIT input context platform plugin
-Group:      Qt/Qt
-Requires:   %{name}-qtcore = %{version}-%{release}
-
-%description plugin-platform-inputcontext-maliit
-This package contains MALIIT platform inputcontext plugin
 
 
 #%package plugin-platform-wayland
@@ -590,7 +583,6 @@ MAKEFLAGS=%{?_smp_mflags} \
     -I/usr/include/freetype2 \
     -nomake tests \
     -nomake examples \
-    -nomake demos \
     -no-xinput2 \
     -xcb
 #
@@ -703,6 +695,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Core.so
 %{_libdir}/pkgconfig/Qt5Core.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_core.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_core_private.pri
 %{_libdir}/cmake/
 
 %files qmake
@@ -713,6 +706,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_datadir}/qt5/mkspecs/common/
 %{_datadir}/qt5/mkspecs/cygwin-*/
 %{_datadir}/qt5/mkspecs/darwin-*/
+%{_datadir}/qt5/mkspecs/devices/
 %{_datadir}/qt5/mkspecs/features/
 %{_datadir}/qt5/mkspecs/freebsd-*/
 %{_datadir}/qt5/mkspecs/hpux-*
@@ -725,6 +719,8 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_datadir}/qt5/mkspecs/netbsd-*/
 %{_datadir}/qt5/mkspecs/openbsd-*/
 %{_datadir}/qt5/mkspecs/qconfig.pri
+%{_datadir}/qt5/mkspecs/qdevice.pri
+%{_datadir}/qt5/mkspecs/qfeatures.pri
 %{_datadir}/qt5/mkspecs/qmodule.pri
 %{_datadir}/qt5/mkspecs/qnx*/
 %{_datadir}/qt5/mkspecs/sco-*/
@@ -736,8 +732,8 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_datadir}/qt5/mkspecs/win32-icc/
 %{_datadir}/qt5/mkspecs/win32-msvc20*/
 %{_datadir}/qt5/mkspecs/wince*/
-%{_datadir}/qt5/mkspecs/devices/
-%{_datadir}/qt5/mkspecs/qdevice.pri
+%{_datadir}/qt5/mkspecs/winphone-*/
+%{_datadir}/qt5/mkspecs/winrt-*/
 %config(noreplace) %{_sysconfdir}/rpm/macros.qt5-default
 
 %files qtdbus
@@ -754,6 +750,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5DBus.prl
 %{_libdir}/pkgconfig/Qt5DBus.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_dbus.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_dbus_private.pri
 
 
 %files qtgui
@@ -768,6 +765,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Gui.so
 %{_libdir}/pkgconfig/Qt5Gui.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_gui.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_gui_private.pri
 
 
 %files qtnetwork
@@ -782,6 +780,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Network.so
 %{_libdir}/pkgconfig/Qt5Network.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_network.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_network_private.pri
 
 
 %files qtopengl
@@ -800,9 +799,11 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/pkgconfig/Qt5OpenGL.pc
 %{_libdir}/pkgconfig/Qt5OpenGLExtensions.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_opengl.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_opengl_private.pri
 %{_datadir}/qt5/mkspecs/android-g++/qmake.conf
 %{_datadir}/qt5/mkspecs/android-g++/qplatformdefs.h
 %{_datadir}/qt5/mkspecs/modules/qt_lib_openglextensions.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri
 
 
 %files qtsql
@@ -817,6 +818,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Sql.so
 %{_libdir}/pkgconfig/Qt5Sql.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_sql.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_sql_private.pri
 
 
 %files qttest
@@ -830,6 +832,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Test.so
 %{_libdir}/pkgconfig/Qt5Test.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_testlib.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_testlib_private.pri
 
 %files qtxml
 %defattr(-,root,root,-)
@@ -842,6 +845,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Xml.so
 %{_libdir}/pkgconfig/Qt5Xml.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_xml.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_xml_private.pri
 
 %files qtwidgets
 %defattr(-,root,root,-)
@@ -854,6 +858,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Widgets.so
 %{_libdir}/pkgconfig/Qt5Widgets.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_widgets.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_widgets_private.pri
 
 %files qtplatformsupport-devel
 %defattr(-,root,root,-)
@@ -861,14 +866,15 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5PlatformSupport.prl
 %{_libdir}/libQt5PlatformSupport.a
 %{_libdir}/pkgconfig/Qt5PlatformSupport.pc
-%{_datadir}/qt5/mkspecs/modules/qt_lib_platformsupport.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri
+
 
 %files qtbootstrap-devel
 %defattr(-,root,root,-)
 %{_libdir}/libQt5Bootstrap.prl
 %{_libdir}/libQt5Bootstrap.a
 %{_libdir}/pkgconfig/Qt5Bootstrap.pc
-%{_datadir}/qt5/mkspecs/modules/qt_lib_bootstrap.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri
 
 %files qtprintsupport
 %defattr(-,root,root,-)
@@ -881,6 +887,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5PrintSupport.so
 %{_libdir}/pkgconfig/Qt5PrintSupport.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_printsupport.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_printsupport_private.pri
 
 %files qtconcurrent
 %defattr(-,root,root,-)
@@ -893,6 +900,7 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %{_libdir}/libQt5Concurrent.so
 %{_libdir}/pkgconfig/Qt5Concurrent.pc
 %{_datadir}/qt5/mkspecs/modules/qt_lib_concurrent.pri
+%{_datadir}/qt5/mkspecs/modules/qt_lib_concurrent_private.pri
 
 
 
@@ -938,10 +946,6 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %files plugin-platform-inputcontext-compose
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
-
-%files plugin-platform-inputcontext-maliit
-%defattr(-,root,root,-)
-%{_libdir}/qt5/plugins/platforminputcontexts/libmaliitplatforminputcontextplugin.so
 
 %files plugin-platform-eglfs
 %defattr(-,root,root,-)
