@@ -25,6 +25,7 @@ BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(icu-uc)
@@ -243,6 +244,14 @@ Requires:   %{name}-qtcore = %{version}-%{release}
 
 %description plugin-platform-linuxfb
 This package contains the linuxfb platform plugin for Qt
+
+%package plugin-platform-kms
+Summary:    KMS platform plugin
+Group:      Qt/Qt
+Requires:   %{name}-qtcore = %{version}-%{release}
+
+%description plugin-platform-kms
+This package contains the KMS platform plugin for Qt
 
 %package plugin-printsupport-cups
 Summary:    CUPS print support plugin
@@ -962,6 +971,10 @@ ln -s %{_sysconfdir}/xdg/qtchooser/5.conf %{buildroot}%{_sysconfdir}/xdg/qtchoos
 %files plugin-platform-linuxfb
 %defattr(-,root,root,-)
 %{_libdir}/qt5/plugins/platforms/libqlinuxfb.so
+
+%files plugin-platform-kms
+%defattr(-,root,root,-)
+%{_libdir}/qt5/plugins/platforms/libqkms.so
 
 %files plugin-printsupport-cups
 %defattr(-,root,root,-)
