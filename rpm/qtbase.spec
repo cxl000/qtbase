@@ -13,7 +13,7 @@
 
 Name:       qt5
 Summary:    Cross-platform application and UI framework
-Version:    5.2.0
+Version:    5.2.1
 Release:    1%{?dist}
 Group:      Qt/Qt
 License:    LGPLv2.1 with exception or GPLv3
@@ -21,7 +21,6 @@ URL:        http://qt.nokia.com
 Source0:    %{name}-%{version}.tar.bz2
 Source1:    macros.qt5-default
 Source100:  qtbase-rpmlintrc
-Patch1:     000-wayland-scanner-install-headers.patch
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  pkgconfig(egl)
@@ -541,7 +540,6 @@ This package contains the Qt5 development defaults package
 
 %prep
 %setup -q -n qt5-%{version}/qtbase
-%patch1 -p1
 
 %build
 touch .git
