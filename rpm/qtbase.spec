@@ -55,7 +55,7 @@ BuildRequires:  pkgconfig(xv)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  pkgconfig(mtdev)
-BuildRequires:  pkgconfig(libsystemd-journal)
+BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  cups-devel
 BuildRequires:  fdupes
 BuildRequires:  flex
